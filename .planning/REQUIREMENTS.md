@@ -9,8 +9,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Core Environment (ENV)
 
-- [ ] **ENV-01**: 搭建 Vite + React 18 + TS + Tailwind CSS 基础工程，确保样式与排版工具就绪。
-- [ ] **ENV-02**: 集成 `shaka-player` 作为核心媒体播放库，并集成 `@interactive-video-labs/react` (interactive-video-react-wrapper) 作为核心互动逻辑包装器。
+- [x] **ENV-01**: 搭建 Vite + React 18 + TS + Tailwind CSS 基础工程，确保样式与排版工具就绪。
+- [x] **ENV-02**: 集成 `shaka-player` 作为核心媒体播放库，并集成 `@interactive-video-labs/react` (interactive-video-react-wrapper) 作为核心互动逻辑包装器。
 
 ### Configuration & Data (DATA)
 
@@ -55,8 +55,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ENV-01 | Phase 1 | Pending |
-| ENV-02 | Phase 1 | Pending |
+| ENV-01 | Phase 1 | Complete |
+| ENV-02 | Phase 1 | Complete |
 | DATA-01 | Phase 2 | Pending |
 | DATA-02 | Phase 2 | Pending |
 | PLAY-01 | Phase 3 | Pending |
@@ -78,4 +78,4 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ---
 *Requirements defined: 2026-05-27*
-*Last updated: 2026-05-27 after initial definition*
+*Last updated: 2026-05-27 after Phase 1 completion*

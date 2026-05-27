@@ -6,7 +6,7 @@
 
 ## Phases
 
-- [ ] **Phase 1: 环境与基础设施搭建** - 搭建 React 18 + TS + Tailwind 开发环境，并引入 `shaka-player`。
+- [x] **Phase 1: 环境与基础设施搭建** - 搭建 React 18 + TS + Tailwind 开发环境，并引入 `shaka-player` 与 `@interactive-video-labs/react`。
 - [ ] **Phase 2: 数据驱动逻辑层设计** - 设计解析逻辑并定义 `storyConfig.json` 数据流驱动。
 - [ ] **Phase 3: 双实例交替播放核心 (PLAY)** - 开发 `InteractivePlayer` 底层双 Video DOM 交替预加载与瞬间物理切换算法。
 - [ ] **Phase 4: 顶层解耦交互 UI 与状态捕获** - 构建高性能进度捕获逻辑与高颜值、动效感十足的交互选择弹窗。
@@ -25,7 +25,7 @@
 **Plans**: 1 plan
 
 Plans:
-- [ ] 01-01: 集成项目环境、Tailwind 及 Shaka-player 依赖
+- [x] 01-01: 集成项目环境、Tailwind 及 Shaka-player 与 Wrapper 依赖
 
 ### Phase 2: 数据驱动逻辑层设计
 **Goal**: 完成状态机与配置文件的读取解耦，使引擎纯粹依赖 JSON 数据。
@@ -82,7 +82,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. 环境与基础设施搭建 | 0/1 | Not started | - |
+| 1. 环境与基础设施搭建 | 1/1 | Complete | 2026-05-27 |
 | 2. 数据驱动逻辑层设计 | 0/1 | Not started | - |
 | 3. 双实例交替播放核心 (PLAY) | 0/2 | Not started | - |
 | 4. 顶层解耦交互 UI 与状态捕获 | 0/1 | Not started | - |
