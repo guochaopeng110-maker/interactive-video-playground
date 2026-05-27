@@ -35,8 +35,8 @@
 
 ## Constraints
 
-- **Tech Stack**: Vite + React 18 + TypeScript + Tailwind CSS — 确保高开发效率和现代的视觉风格。
-- **Media Engine**: shaka-player — 满足未来流媒体扩展性要求。
+- **Tech Stack**: Vite + React 18 + TS + Tailwind CSS 与 `@interactive-video-labs/react` — 确保高品质的开发环境与现代互动视频生态集成。
+- **Media Engine**: shaka-player — 满足底层交替预加载与缓冲管理要求。
 - **Browser Compatibility**: 现代浏览器（Chrome/Edge/Safari/Firefox），支持 HTML5 视频双实例同时渲染与播放。
 
 ## Key Decisions

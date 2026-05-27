@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-本阶段的目标是为互动视频引擎 Demo 搭建坚实的技术骨架。具体包括：初始化 Vite + React 18 + TypeScript 基础环境，配置 Tailwind CSS 样式系统以实现高颜值毛玻璃等高级 UI 效果，并集成 `shaka-player`。
+本阶段的目标是为互动视频引擎 Demo 搭建坚实的技术骨架。具体包括：初始化 Vite + React 18 + TypeScript 基础环境，配置 Tailwind CSS 样式系统以实现高颜值毛玻璃等高级 UI 效果，并集成 `shaka-player` 和 `@interactive-video-labs/react`。
 
 </domain>
 
@@ -20,11 +20,12 @@
 ### 样式与排版系统
 - **D-03**: 集成 Tailwind CSS 作为核心样式框架，以便通过原生 Utility Class 极其灵活、快速地构建现代的 UI 动效和毛玻璃设计系统。
 
-### 核心播放器依赖
+### 核心播放与互动依赖
 - **D-04**: 集成 `shaka-player` 作为核心视频流媒体/底层播放管理库，提供高级的媒体加载与缓冲控制。
+- **D-06**: 引入 `@interactive-video-labs/react` 作为核心互动组件库，为顶层交互和选项流转提供标准包装与事件通知机制。
 
 ### 验证工具与架构
-- **D-05**: 使用标准 Vite 运行服务进行本地开发（默认 `localhost:5173`），并通过浏览器进行手动 UI/UX 效果与 Shaka 实例初始化校验。
+- **D-05**: 使用标准 Vite 运行服务进行本地开发（默认 `localhost:5173`），并通过浏览器进行手动 UI/UX 效果与 Shaka 及 Wrapper 实例初始化校验。
 
 ### the agent's Discretion
 - 包结构的具体划分方式。

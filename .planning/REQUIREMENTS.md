@@ -10,7 +10,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Core Environment (ENV)
 
 - [ ] **ENV-01**: 搭建 Vite + React 18 + TS + Tailwind CSS 基础工程，确保样式与排版工具就绪。
-- [ ] **ENV-02**: 集成 `shaka-player` 作为核心媒体引擎驱动。
+- [ ] **ENV-02**: 集成 `shaka-player` 作为核心媒体播放库，并集成 `@interactive-video-labs/react` (interactive-video-react-wrapper) 作为核心互动逻辑包装器。
 
 ### Configuration & Data (DATA)
 
@@ -26,7 +26,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Interaction Layer (UI)
 
-- [ ] **UI-01**: 交互层与媒体播放层完全解耦，上层 React 接收引擎状态（如当前播放节点、当前进度、弹窗触发等）。
+- [ ] **UI-01**: 交互层与媒体播放层完全解耦，引入并配置 `@interactive-video-labs/react` 组件包进行上层选项卡片与流转路由映射。
 - [ ] **UI-02**: 使用 React `useRef` 或低频订阅模型，优雅捕获播放进度，避免每一帧渲染都触发 React UI 的高频 Re-render。
 - [ ] **UI-03**: 在交互触发点（如 15 秒）弹出选择卡片，展示问题及剧情分支选项，并在此期间暂停视频（或保持挂起）。
 - [ ] **UI-04**: 用户选择选项后，分发流转指令，通知 `InteractivePlayer` 执行相应节点的双实例预加载/切换动作。

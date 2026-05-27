@@ -15,6 +15,7 @@
 - **V-M1**: 网页在 `localhost:5173` 正常加载，没有渲染阻塞白屏。
 - **V-M2**: Tailwind 样式验证：主页上的示例卡片拥有明显的磨砂玻璃样式且动画平滑。
 - **V-M3**: Shaka Player 实例加载验证：在控制台无 `shaka` 相关的报错，能展示一个使用 Shaka Player 渲染的基础播放界面，并成功渲染普通 MP4 资产。
+- **V-M4**: `@interactive-video-labs/react` 依赖包导入验证：验证核心包装组件和 Types 能够在 React 组件中被正常识别导入，且通过 Vite 打包完全通过。
 
 ---
 

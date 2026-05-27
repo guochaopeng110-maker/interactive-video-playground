@@ -26,12 +26,20 @@
   - 对于普通的本地 `.mp4`，可以使用 `player.load(url)` 方法加载。在双实例交替预加载（Dual-Player Preloading）中，这能精确地允许静默缓冲首帧。
   - 注意：需要引入 `shaka-player/dist/shaka-player.compiled.d.ts` 以提供完整的 TypeScript 类型声明支持。
 
+### `@interactive-video-labs/react` 集成 (interactive-video-react-wrapper)
+- **简介**：专为 React 18 打造的 cue 触发式互动视频播放包装组件，底层依赖 `@interactive-video-labs/core` 类型安全的 TypeScript 状态引擎。
+- **作用**：以声明式组件形式轻松映射时间戳 (cue points) 与对应选项卡片触发机制，为解耦设计提供标准的交互管理抽象层。
+- **与 Shaka 双实例适配方案**：
+  我们将双实例 Shaka 播放器作为纯底层渲染的物理层（负责双 DOM 瞬切），而将 `@interactive-video-labs/react` 作为顶层逻辑状态管理者，捕获事件，发布流转。这能完美实现媒体播放与顶层 UI 的完全解耦。
+
 ## 2. 潜在隐患与解决方案 (Pitfalls & Mitigation)
 
-- **隐患 A**：Shaka Player 在 React 组件中可能会因为组件频繁 re-render 而被重复实例化，导致内存泄泄或报错。
+- **隐患 A**：Shaka Player 在 React 组件中可能会因为组件频繁 re-render 而被重复实例化，导致内存泄漏或报错。
   * **解决方案**：使用 `useEffect` 在组件 mount 时初始化，并在 return cleanup 函数中显式执行 `player.destroy()`。
 - **隐患 B**：Shaka Player 打包可能在某些环境下类型解析失败。
   * **解决方案**：在项目的全局声明文件（如 `shaka.d.ts`）中声明或者直接通过正确引入 `import shaka from 'shaka-player';` 来获得类型支持。
+- **隐患 C**：第三方的包装库可能会在底层直接操作单 Video 实例，这与我们的“双实例交替策略”产生冲突。
+  * **解决方案**：我们将交互事件层与物理播放层隔离开，仅让 wrapper 负责路由判定和事件触发（发布-订阅模式），而由我们底层的 `InteractivePlayer` 负责双 Video 精准操纵，两层之间通过轻量事件契约通信，杜绝物理层级冲突。
 
 ## 3. 验证体系架构 (Validation Architecture)
 
@@ -39,6 +47,7 @@
 - **V-1**: 项目能够一键通过 `npm run dev` 启动，并在控制台无报错。
 - **V-2**: 能够通过引入的 Shaka Player API 成功把普通 MP4 绑定在页面 Video 标签上并播放。
 - **V-3**: Tailwind CSS 的 Utility classes 渲染完全正常。
+- **V-4**: `@interactive-video-labs/react` 能成功在项目中导入，没有 TypeScript 编译报错。
 
 ---
 

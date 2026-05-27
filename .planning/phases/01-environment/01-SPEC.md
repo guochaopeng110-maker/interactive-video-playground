@@ -6,11 +6,11 @@
 
 ## Goal
 
-搭建一个干净、高性能、支持 TypeScript 的 React 18 基础开发环境，并成功引入 Tailwind CSS 以及 `shaka-player`。
+搭建一个干净、高性能、支持 TypeScript 的 React 18 基础开发环境，并成功引入 Tailwind CSS、`shaka-player` 以及 `@interactive-video-labs/react` 核心互动视频包装库。
 
 ## Background
 
-当前工作区是一个全新的空白 Git 仓库，没有任何代码文件。我们需要从零初始化开发底座，确保样式的重置和流媒体播放库能够正常通过 Vite 加包和打包。
+当前工作区是一个全新的空白 Git 仓库，没有任何代码文件。我们需要从零初始化开发底座，确保样式的重置、流媒体播放库以及核心交互包装库能够正常通过 Vite 加包和打包。
 
 ## Requirements
 
@@ -24,18 +24,18 @@
    - Target: 安装并在项目中完整配置 Tailwind CSS，包含 CSS 重置与毛玻璃（Glassmorphism）等必备特效的配置。
    - Acceptance: 项目中能渲染一个拥有 `backdrop-blur-md` 磨砂玻璃特效和 Tailwind 工具类的测试组件，样式与 Tailwind 重置相匹配。
 
-3. **Shaka Player 媒体播放依赖**:
-   - Current: 没有任何流媒体或底层视频控制库。
-   - Target: npm 安装并集成 `shaka-player`，并在页面上成功初始化一个基础的 Shaka 播放器实例。
-   - Acceptance: 引入 `shaka-player`，挂载至测试页面上的 Video 元素，在浏览器控制台中没有 Shaka 初始化或类型解析报错，可读取普通的 `.mp4` 文件。
+3. **Shaka Player 与 `@interactive-video-labs/react` 媒体与交互依赖**:
+   - Current: 没有任何流媒体或底层视频控制与互动组件库。
+   - Target: npm 安装并集成 `shaka-player` 和 `@interactive-video-labs/react`，在页面上初始化基础播放和互动包装实例。
+   - Acceptance: 成功引入这两个核心依赖，在浏览器控制台中没有初始化或类型解析报错，可读取普通的 `.mp4` 文件，并且 wrapper 导入正常。
 
 ## Boundaries
 
 **In scope:**
 - Vite + React 18 + TypeScript 工程初始化。
 - Tailwind CSS 样式集成与配置文件（`tailwind.config.js` 等）。
-- `shaka-player` npm 依赖集成与基础引用测试。
-- 用于环境冒烟校验的极简主页渲染（验证 Shaka 加载与 Tailwind 渲染）。
+- `shaka-player` 与 `@interactive-video-labs/react` npm 依赖集成与基础引用测试。
+- 用于环境冒烟校验的极简主页渲染（验证 Shaka 加载、Tailwind 渲染与 Wrapper 引用）。
 
 **Out of Scope:**
 - 互动播放控制机与 JSON 逻辑层 — Phase 2 开发。
@@ -54,6 +54,7 @@
 - [ ] 页面在 `localhost` 加载成功，Tailwind CSS 的基础重置样式完全生效。
 - [ ] 主页测试组件成功渲染毛玻璃磨砂特效卡片（验证 Tailwind 集成）。
 - [ ] Shaka Player 成功在 React `useEffect` 中完成对 Video 元素的绑定，并在 console 中输出 Shaka 引擎初始化的 log 且无加载报错。
+- [ ] `@interactive-video-labs/react` 核心包装库在 React 项目中能够成功导入，没有 TypeScript 类型解析报错。
 
 ## Ambiguity Report
 
