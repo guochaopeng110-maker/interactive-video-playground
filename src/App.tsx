@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import shaka from 'shaka-player';
 import * as IVLabs from '@interactive-video-labs/react';
 
