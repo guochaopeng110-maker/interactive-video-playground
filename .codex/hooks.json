@@ -1,0 +1,12 @@
+{
+  "SessionStart": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "\"F:/Projects/Interective-Video/InteractiveVideoDemo/.codex/hooks/gsd-check-update.cmd\""
+        }
+      ]
+    }
+  ]
+}

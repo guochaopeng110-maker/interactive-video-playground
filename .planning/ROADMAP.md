@@ -83,7 +83,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. 环境与基础设施搭建 | 1/1 | Complete | 2026-05-27 |
-| 2. 数据驱动逻辑层设计 | 0/1 | Not started | - |
+| 2. 数据驱动逻辑层设计 | 0/1 | In progress | - |
 | 3. 双实例交替播放核心 (PLAY) | 0/2 | Not started | - |
 | 4. 顶层解耦交互 UI 与状态捕获 | 0/1 | Not started | - |
 | 5. 资产配置与全链路联合调试 | 0/1 | Not started | - |
