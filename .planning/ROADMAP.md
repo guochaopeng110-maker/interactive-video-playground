@@ -64,7 +64,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 04-01: 编写解耦的 Interaction Container 与毛玻璃分支交互弹窗 UI
+- [ ] 04-01-PLAN.md — 编写解耦的 Interaction Container 与毛玻璃分支交互弹窗 UI
 
 ### Phase 5: 资产配置与全链路联合调试
 **Goal**: 挂载真实本地视频资产，进行端到端的无缝切换验证。
