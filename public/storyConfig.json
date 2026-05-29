@@ -1,0 +1,39 @@
+{
+  "startNodeId": "main_intro",
+  "nodes": {
+    "main_intro": {
+      "id": "main_intro",
+      "videoUrl": "/assets/intro.mp4",
+      "duration": 15,
+      "defaultNextNodeId": "branch_a",
+      "interactions": [
+        {
+          "timestamp": 10.0,
+          "type": "choice",
+          "options": [
+            {
+              "text": "探索神秘山谷 (分支 A)",
+              "targetNodeId": "branch_a"
+            },
+            {
+              "text": "潜入深海遗迹 (分支 B)",
+              "targetNodeId": "branch_b"
+            }
+          ]
+        }
+      ]
+    },
+    "branch_a": {
+      "id": "branch_a",
+      "videoUrl": "/assets/branch_a.mp4",
+      "duration": 10,
+      "interactions": []
+    },
+    "branch_b": {
+      "id": "branch_b",
+      "videoUrl": "/assets/branch_b.mp4",
+      "duration": 10,
+      "interactions": []
+    }
+  }
+}
