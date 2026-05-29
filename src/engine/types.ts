@@ -26,9 +26,11 @@ export interface StoryConfig {
 export type NodeChangedCallback = (currentNode: VideoNode, previousNodeId: string | null) => void;
 export type InteractionTriggeredCallback = (interaction: VideoInteraction) => void;
 export type PlaybackFinishedCallback = (finalNodeId: string) => void;
+export type SwitchLatencyCallback = (latency: number) => void;
 
 export interface StateManagerEvents {
   nodeChanged: NodeChangedCallback[];
   interactionTriggered: InteractionTriggeredCallback[];
   playbackFinished: PlaybackFinishedCallback[];
+  switchLatency: SwitchLatencyCallback[];
 }

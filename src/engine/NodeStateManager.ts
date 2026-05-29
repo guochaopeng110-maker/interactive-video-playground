@@ -4,7 +4,8 @@ import type {
   StateManagerEvents,
   NodeChangedCallback,
   InteractionTriggeredCallback,
-  PlaybackFinishedCallback
+  PlaybackFinishedCallback,
+  SwitchLatencyCallback
 } from './types';
 
 export class NodeStateManager {
@@ -19,7 +20,8 @@ export class NodeStateManager {
   private events: StateManagerEvents = {
     nodeChanged: [],
     interactionTriggered: [],
-    playbackFinished: []
+    playbackFinished: [],
+    switchLatency: []
   };
 
   /**
@@ -164,6 +166,21 @@ export class NodeStateManager {
   }
 
   /**
+   * 记录并广播切换延迟时差
+   * @param latency 精确到毫秒的切换延时数值
+   */
+  public recordSwitchLatency(latency: number): void {
+    console.log(`[NodeStateManager] 记录切换时延: ${latency.toFixed(2)}ms`);
+    this.events.switchLatency.forEach(callback => {
+      try {
+        callback(latency);
+      } catch (err) {
+        console.error('[NodeStateManager] 执行 switchLatency 监听回调报错:', err);
+      }
+    });
+  }
+
+  /**
    * 时间轴 Tick 推动器（由底层播放器的 timeupdate 不间断驱动）
    * @param currentTime 当前播放的精确时刻（秒）
    */
@@ -257,6 +274,7 @@ export class NodeStateManager {
   public on(event: 'nodeChanged', callback: NodeChangedCallback): void;
   public on(event: 'interactionTriggered', callback: InteractionTriggeredCallback): void;
   public on(event: 'playbackFinished', callback: PlaybackFinishedCallback): void;
+  public on(event: 'switchLatency', callback: SwitchLatencyCallback): void;
   public on(event: any, callback: any): void {
     if (event in this.events) {
       (this.events as any)[event].push(callback);
@@ -269,6 +287,7 @@ export class NodeStateManager {
   public off(event: 'nodeChanged', callback: NodeChangedCallback): void;
   public off(event: 'interactionTriggered', callback: InteractionTriggeredCallback): void;
   public off(event: 'playbackFinished', callback: PlaybackFinishedCallback): void;
+  public off(event: 'switchLatency', callback: SwitchLatencyCallback): void;
   public off(event: any, callback: any): void {
     if (event in this.events) {
       const list = (this.events as any)[event];

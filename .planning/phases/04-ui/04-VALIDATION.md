@@ -1,9 +1,9 @@
 ---
 phase: 04
 slug: ui
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: approved
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-05-28
 ---
 
@@ -38,9 +38,9 @@ created: 2026-05-28
 
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 04-01-01 | 01 | 1 | UI-01, UI-02 | — | N/A | unit | `npx vitest run src/components/__tests__/InteractionContainer.test.tsx` | ❌ W0 | ⬜ pending |
-| 04-01-02 | 01 | 1 | UI-03, UI-04 | T-04-01 | 按钮点击后立即锁定 isLocked，拦截任何并发的二次跳转指令 | unit | `npx vitest run src/components/__tests__/InteractionContainer.test.tsx` | ❌ W0 | ⬜ pending |
-| 04-01-03 | 01 | 1 | UI-05 | — | N/A | unit | `npx vitest run src/components/__tests__/InteractionContainer.test.tsx` | ❌ W0 | ⬜ pending |
+| 04-01-01 | 01 | 1 | UI-01, UI-02 | — | N/A | unit | `npx vitest run src/components/__tests__/InteractionContainer.test.tsx` | ✅ yes | ✅ green |
+| 04-01-02 | 01 | 1 | UI-03, UI-04 | T-04-01 | 按钮点击后立即锁定 isLocked，拦截任何并发的二次跳转指令 | unit | `npx vitest run src/components/__tests__/InteractionContainer.test.tsx` | ✅ yes | ✅ green |
+| 04-01-03 | 01 | 1 | UI-05 | — | N/A | unit | `npx vitest run src/components/__tests__/InteractionContainer.test.tsx` | ✅ yes | ✅ green |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -71,4 +71,4 @@ created: 2026-05-28
 - [ ] Feedback latency < 10s
 - [ ] `nyquist_compliant: true` set in frontmatter
 
-**Approval:** {pending}
+**Approval:** approved 2026-05-29
