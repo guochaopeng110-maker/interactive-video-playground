@@ -566,7 +566,7 @@ export default function InteractivePlayer({
       {/* Video A DOM 实例 (常驻) */}
       <video
         ref={videoRefA}
-        className="video-instance-a absolute top-0 left-0 w-full h-full object-contain transition-all duration-[50ms] ease-linear will-change-[transform,opacity,z-index]"
+        className="video-instance-a absolute top-0 left-0 w-full h-full object-cover transition-all duration-[50ms] ease-linear will-change-[transform,opacity,z-index]"
         style={{
           zIndex: activePlayer === 'A' ? 20 : 10,
           opacity: activePlayer === 'A' ? 1 : 0,
@@ -579,7 +579,7 @@ export default function InteractivePlayer({
       {/* Video B DOM 实例 (常驻) */}
       <video
         ref={videoRefB}
-        className="video-instance-b absolute top-0 left-0 w-full h-full object-contain transition-all duration-[50ms] ease-linear will-change-[transform,opacity,z-index]"
+        className="video-instance-b absolute top-0 left-0 w-full h-full object-cover transition-all duration-[50ms] ease-linear will-change-[transform,opacity,z-index]"
         style={{
           zIndex: activePlayer === 'B' ? 20 : 10,
           opacity: activePlayer === 'B' ? 1 : 0,

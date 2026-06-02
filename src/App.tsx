@@ -31,7 +31,7 @@ export default function App() {
         // 订阅底层节点切换，同步上层 UI 与访问记录
         manager.on('nodeChanged', (newNode) => {
           setCurrentNode(newNode);
-          setVisitedNodeIds((prev) => 
+          setVisitedNodeIds((prev) =>
             prev.includes(newNode.id) ? prev : [...prev, newNode.id]
           );
         });
@@ -62,7 +62,7 @@ export default function App() {
 
       newManager.on('nodeChanged', (newNode) => {
         setCurrentNode(newNode);
-        setVisitedNodeIds((prev) => 
+        setVisitedNodeIds((prev) =>
           prev.includes(newNode.id) ? prev : [...prev, newNode.id]
         );
       });
@@ -112,7 +112,7 @@ export default function App() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/5 blur-3xl rounded-full -mr-24 -mt-24 pointer-events-none"></div>
 
             {/* 核心双实例播放器 */}
-            <div className="relative aspect-video rounded-xl overflow-hidden bg-black/95 border border-slate-800 shadow-2xl flex items-center justify-center">
+            <div className="relative w-full max-w-[380px] aspect-[9/16] mx-auto rounded-xl overflow-hidden bg-black/95 border border-slate-800 shadow-2xl flex items-center justify-center">
               {!isFinished ? (
                 <>
                   <InteractivePlayer
