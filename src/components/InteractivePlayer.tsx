@@ -3,6 +3,13 @@ import shaka from 'shaka-player';
 import { NodeStateManager } from '../engine/NodeStateManager';
 import type { VideoNode, VideoInteraction } from '../engine/types';
 
+const formatTime = (secs: number) => {
+  if (isNaN(secs) || secs === Infinity) return '00:00';
+  const m = Math.floor(secs / 60).toString().padStart(2, '0');
+  const s = Math.floor(secs % 60).toString().padStart(2, '0');
+  return `${m}:${s}`;
+};
+
 interface InteractivePlayerProps {
   stateManager: NodeStateManager;
   onInteractionTriggered?: (interaction: VideoInteraction) => void;
@@ -30,6 +37,8 @@ export default function InteractivePlayer({
   // DOM 引用
   const videoRefA = useRef<HTMLVideoElement>(null);
   const videoRefB = useRef<HTMLVideoElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const timeDisplayRef = useRef<HTMLSpanElement>(null);
 
   // Shaka 实例引用 (用 any 规避全局 namespace 缺失的 TS 编译错误)
   const playerARef = useRef<any>(null);
@@ -174,6 +183,14 @@ export default function InteractivePlayer({
       setIsChoiceShowing(false);
       setIsPaused(false);
       
+      // 重置非交互进度条与时间文本
+      if (progressBarRef.current) {
+        progressBarRef.current.style.transform = 'scaleX(0)';
+      }
+      if (timeDisplayRef.current) {
+        timeDisplayRef.current.textContent = `00:00 / ${formatTime(newNode.duration)}`;
+      }
+
       if (newNode.id === preloadedNodeIdRef.current && isPreloadReadyRef.current) {
         // A. 预加载命中 -> 执行绝对流畅瞬间硬切
         executeSeamlessTransition(newNode);
@@ -228,6 +245,11 @@ export default function InteractivePlayer({
     setIsPaused(false);
     const startNode = stateManager.getCurrentNode();
     
+    // 初始化时间文本
+    if (timeDisplayRef.current) {
+      timeDisplayRef.current.textContent = `00:00 / ${formatTime(startNode.duration)}`;
+    }
+
     // 初始化首视频源
     await loadVideoSource(startNode, 'A');
 
@@ -296,6 +318,15 @@ export default function InteractivePlayer({
 
     // 推动 NodeStateManager 核心状态管理器 Tick
     stateManager.tick(currentTime);
+
+    // 性能优化：直接操作 DOM 更新进度条与时间文本，免去 React 重绘开销
+    const pct = duration > 0 ? (currentTime / duration) : 0;
+    if (progressBarRef.current) {
+      progressBarRef.current.style.transform = `scaleX(${pct})`;
+    }
+    if (timeDisplayRef.current) {
+      timeDisplayRef.current.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    }
 
     // 临近判定检测窗口：距离视频结束（或交互判定点）剩余 5 - 8 秒区间
     const timeRemaining = duration - currentTime;
@@ -579,23 +610,46 @@ export default function InteractivePlayer({
       {hasStarted && !isChoiceShowing && !isPreempting && (
         <div 
           onClick={(e) => e.stopPropagation()} 
-          className="absolute bottom-4 right-4 z-[35] flex items-center gap-2 transition-all duration-300 opacity-0 group-hover:opacity-100"
+          className="absolute bottom-6 right-6 z-[35] flex items-center gap-3 transition-all duration-300 opacity-0 group-hover:opacity-100 bg-slate-900/75 border border-white/10 px-3 py-1.5 rounded-xl backdrop-blur-md shadow-lg"
         >
+          {/* Playback Time Indicator */}
+          <span 
+            ref={timeDisplayRef}
+            className="text-[10px] font-mono text-slate-300 select-none font-bold"
+          >
+            00:00 / 00:00
+          </span>
+
+          <div className="w-[1px] h-3 bg-white/15" />
+
           {/* Pause/Play HUD Button */}
           <button 
             onClick={togglePlayPause}
-            className="cursor-pointer w-8 h-8 rounded-lg bg-slate-900/60 border border-white/10 hover:border-violet-500/40 text-white flex items-center justify-center backdrop-blur-md active:scale-95 transition-all shadow-lg hover:scale-105"
+            className="cursor-pointer w-6 h-6 rounded-lg bg-white/5 border border-white/5 hover:border-violet-500/40 text-white flex items-center justify-center active:scale-95 transition-all hover:scale-105"
           >
             {isPaused ? (
-              <svg className="w-3.5 h-3.5 fill-current text-white translate-x-[1px]" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 fill-current text-white translate-x-[0.5px]" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
             ) : (
-              <svg className="w-3.5 h-3.5 fill-current text-white" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 fill-current text-white" viewBox="0 0 24 24">
                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
               </svg>
             )}
           </button>
+        </div>
+      )}
+
+      {/* Sleek Progress Bar (Non-interactive) */}
+      {hasStarted && (
+        <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-slate-950/40 z-[35] pointer-events-none">
+          <div 
+            ref={progressBarRef}
+            className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 origin-left shadow-[0_0_8px_rgba(168,85,247,0.6)] transition-transform duration-75 ease-out"
+            style={{
+              transform: 'scaleX(0)',
+            }}
+          />
         </div>
       )}
 

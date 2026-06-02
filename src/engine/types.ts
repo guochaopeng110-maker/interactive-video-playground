@@ -6,6 +6,7 @@ export interface VideoInteractionOption {
 export interface VideoInteraction {
   timestamp: number; // 触发交互弹窗的时刻（秒）
   type: 'choice' | string; // 目前首期仅支持 'choice'
+  title?: string; // 交互弹窗标题（非固定，由配置驱动）
   options: VideoInteractionOption[];
 }
 

@@ -161,7 +161,7 @@ export default function InteractionContainer({ stateManager }: InteractionContai
           </span>
 
           <h3 className="text-sm font-extrabold text-white mt-4 mb-6 tracking-wide leading-snug">
-            前方的道路发生了分叉，请做出您的抉择：
+            {interaction.title || "前方的道路发生了分叉，请做出您的抉择："}
           </h3>
 
           {/* 选项按钮列表 */}

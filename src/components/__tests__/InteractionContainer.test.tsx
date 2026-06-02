@@ -183,4 +183,35 @@ describe('InteractionContainer 单元测试', () => {
     expect(bar.style.width).toBe('0%');
     expect(bar.style.transition).toBe('width 10s linear');
   });
+
+  test('UI-06: 弹窗标题应支持配置驱动，并提供默认兜底标题', () => {
+    render(<InteractionContainer stateManager={stateManager} />);
+
+    // 1. 无 title 时使用默认兜底标题
+    const defaultInteraction: VideoInteraction = mockConfig.nodes.node_start.interactions[0];
+    act(() => {
+      (stateManager as any).events.interactionTriggered.forEach((cb: any) => cb(defaultInteraction));
+    });
+    expect(screen.getByText('前方的道路发生了分叉，请做出您的抉择：')).toBeInTheDocument();
+
+    // 2. 模拟切换重置
+    act(() => {
+      (stateManager as any).events.nodeChanged.forEach((cb: any) => cb(mockConfig.nodes.node_branch_a));
+    });
+
+    // 3. 有 title 时使用配置标题
+    const customInteraction: VideoInteraction = {
+      timestamp: 10,
+      type: 'choice',
+      title: '你决定如何应对眼前的强敌？',
+      options: [
+        { text: '分支 A', targetNodeId: 'node_branch_a' }
+      ]
+    };
+    act(() => {
+      (stateManager as any).events.interactionTriggered.forEach((cb: any) => cb(customInteraction));
+    });
+    expect(screen.getByText('你决定如何应对眼前的强敌？')).toBeInTheDocument();
+    expect(screen.queryByText('前方的道路发生了分叉，请做出您的抉择：')).not.toBeInTheDocument();
+  });
 });

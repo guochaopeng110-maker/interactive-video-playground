@@ -3,20 +3,21 @@
   "nodes": {
     "main_intro": {
       "id": "main_intro",
-      "videoUrl": "/assets/intro.mp4",
-      "duration": 15,
+      "videoUrl": "/assets/总览分AB.mp4",
+      "duration": 68,
       "defaultNextNodeId": "branch_a",
       "interactions": [
         {
-          "timestamp": 10.0,
+          "timestamp": 60.0,
           "type": "choice",
+          "title": "药尊与阵镜的道路就在眼前，请做出您的抉择：",
           "options": [
             {
-              "text": "探索神秘山谷 (分支 A)",
+              "text": "吞下毒丹，以身化药",
               "targetNodeId": "branch_a"
             },
             {
-              "text": "潜入深海遗迹 (分支 B)",
+              "text": "击碎阵镜，昭告天下",
               "targetNodeId": "branch_b"
             }
           ]
@@ -25,14 +26,14 @@
     },
     "branch_a": {
       "id": "branch_a",
-      "videoUrl": "/assets/branch_a.mp4",
-      "duration": 10,
+      "videoUrl": "/assets/分支A.mp4",
+      "duration": 26,
       "interactions": []
     },
     "branch_b": {
       "id": "branch_b",
-      "videoUrl": "/assets/branch_b.mp4",
-      "duration": 10,
+      "videoUrl": "/assets/分支B.mp4",
+      "duration": 17,
       "interactions": []
     }
   }
