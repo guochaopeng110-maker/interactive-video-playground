@@ -1,39 +1,97 @@
 {
-  "startNodeId": "main_intro",
+  "startNodeId": "开局",
   "nodes": {
-    "main_intro": {
-      "id": "main_intro",
-      "videoUrl": "/assets/总览分AB.mp4",
-      "duration": 68,
-      "defaultNextNodeId": "branch_a",
+    "开局": {
+      "id": "开局",
+      "videoUrl": "/assets/A.mp4",
+      "duration": 85,
+      "defaultNextNodeId": "吞下毒丹",
       "interactions": [
         {
-          "timestamp": 60.0,
+          "timestamp": 73.0,
           "type": "choice",
           "title": "药尊与阵镜的道路就在眼前，请做出您的抉择：",
           "options": [
             {
               "text": "吞下毒丹，以身化药",
-              "targetNodeId": "branch_a"
+              "targetNodeId": "吞下毒丹"
             },
             {
               "text": "击碎阵镜，昭告天下",
-              "targetNodeId": "branch_b"
+              "targetNodeId": "击碎阵镜"
             }
           ]
         }
       ]
     },
-    "branch_a": {
-      "id": "branch_a",
-      "videoUrl": "/assets/分支A.mp4",
-      "duration": 26,
+    "吞下毒丹": {
+      "id": "吞下毒丹",
+      "videoUrl": "/assets/A1.mp4",
+      "duration": 58,
+      "defaultNextNodeId": "假意抽取",
+      "interactions": [
+        {
+          "timestamp": 55.0,
+          "type": "choice",
+          "title": "面对至亲师妹,你的选择是：",
+          "options": [
+            {
+              "text": "假意抽取，暗度灵力",
+              "targetNodeId": "假意抽取"
+            },
+            {
+              "text": "彻底黑化，全盘吞噬",
+              "targetNodeId": "彻底黑化"
+            }
+          ]
+        }
+      ]
+    },
+    "击碎阵镜": {
+      "id": "击碎阵镜",
+      "videoUrl": "/assets/A2.mp4",
+      "duration": 75,
+      "defaultNextNodeId": "强冲剑阵",
+      "interactions": [
+        {
+          "timestamp": 69.0,
+          "type": "choice",
+          "title": "面对漫天剑的镇压, 你的选择是：",
+          "options": [
+            {
+              "text": "以身入局，燃烧元神，强冲剑阵",
+              "targetNodeId": "强冲剑阵"
+            },
+            {
+              "text": "借力打力，引爆宗门地脉灵气",
+              "targetNodeId": "借力打力"
+            }
+          ]
+        }
+      ]
+    },
+    "假意抽取": {
+      "id": "假意抽取",
+      "videoUrl": "/assets/B1.mp4",
+      "duration": 64,
       "interactions": []
     },
-    "branch_b": {
-      "id": "branch_b",
-      "videoUrl": "/assets/分支B.mp4",
-      "duration": 17,
+    "彻底黑化": {
+      "id": "彻底黑化",
+      "videoUrl": "/assets/B2.mp4",
+      "duration": 62,
+      "interactions": []
+    },
+    "强冲剑阵": {
+      "id": "强冲剑阵",
+      "videoUrl": "/assets/C1.mp4",
+      "duration": 58,
+      "interactions": []
+    },
+    "借力打力": {
+      "id": "借力打力",
+      "videoUrl": "/assets/C2.mp4",
+      "duration": 72,
       "interactions": []
     }
   }

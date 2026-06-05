@@ -187,7 +187,7 @@ export default function App() {
 
       {/* 底部信息 */}
       <footer className="max-w-4xl w-full mx-auto mt-6 pt-4 border-t border-slate-900 text-center text-xs text-slate-500">
-        Interactive Video Engine Framework - Antigravity AI Powered
+        Interactive Video Engine Framework - TDu Powered
       </footer>
     </div>
   );
