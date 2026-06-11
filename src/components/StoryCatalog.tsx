@@ -6,12 +6,14 @@ interface StoryCatalogProps {
   stateManager: NodeStateManager;
   currentNode: VideoNode;
   visitedNodeIds: string[];
+  isFinished: boolean;
 }
 
 export default function StoryCatalog({
   stateManager,
   currentNode,
-  visitedNodeIds
+  visitedNodeIds,
+  isFinished
 }: StoryCatalogProps) {
   const config = (stateManager as any).config as StoryConfig;
   const nodes = config.nodes;
@@ -28,7 +30,7 @@ export default function StoryCatalog({
     const node = nodes[nodeId];
     if (!node) return null;
 
-    const isActive = currentNode.id === nodeId;
+    const isActive = !isFinished && currentNode.id === nodeId;
     const isVisited = visitedNodeIds.includes(nodeId);
     const isLocked = !isVisited && !isActive;
 
@@ -40,7 +42,7 @@ export default function StoryCatalog({
     if (isActive) {
       itemBg = 'bg-gradient-to-r from-violet-600/20 via-fuchsia-600/15 to-pink-500/10 border-fuchsia-500/50 text-white shadow-[0_0_15px_rgba(217,70,239,0.1)]';
       dotColor = 'bg-fuchsia-400 animate-pulse shadow-md shadow-fuchsia-500';
-      textGrad = 'bg-gradient-to-r from-violet-300 via-fuchsia-300 to-pink-300 bg-clip-text text-transparent font-extrabold';
+      textGrad = 'text-fuchsia-300 font-extrabold';
     } else if (isVisited) {
       itemBg = 'bg-slate-900/30 border-purple-500/30 text-purple-200 hover:bg-slate-900/60 hover:border-purple-500/50';
       dotColor = 'bg-purple-500';
@@ -139,7 +141,7 @@ export default function StoryCatalog({
   };
 
   return (
-    <div className="glass-panel w-full flex flex-col gap-4 overflow-hidden relative p-5 max-h-[675px]">
+    <div className="glass-panel w-full h-full flex flex-col gap-4 overflow-hidden relative p-5">
       {/* 磨砂玻璃彩色发光圈 */}
       <div className="absolute top-0 right-0 w-36 h-36 bg-purple-500/5 blur-2xl rounded-full pointer-events-none -mr-12 -mt-12"></div>
 

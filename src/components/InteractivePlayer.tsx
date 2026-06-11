@@ -651,7 +651,7 @@ export default function InteractivePlayer({
       {hasStarted && !isChoiceShowing && !isPreempting && (
         <div 
           onClick={(e) => e.stopPropagation()} 
-          className="absolute bottom-6 right-6 z-[35] flex items-center gap-3 transition-all duration-300 opacity-0 group-hover:opacity-100 bg-slate-900/75 border border-white/10 px-3 py-1.5 rounded-xl backdrop-blur-md shadow-lg"
+          className="absolute bottom-6 right-6 z-[35] flex items-center gap-3 transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100 bg-slate-900/75 border border-white/10 px-3 py-1.5 rounded-xl backdrop-blur-md shadow-lg"
         >
           {/* Playback Time Indicator */}
           <span 

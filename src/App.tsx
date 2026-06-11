@@ -181,11 +181,12 @@ export default function App() {
           </section>
 
           {/* 右侧分栏：常驻树状章节目录 */}
-          <section className="flex-1 w-full md:max-w-xl">
+          <section className="flex-1 w-full md:max-w-xl h-full">
             <StoryCatalog
               stateManager={stateManager}
               currentNode={currentNode}
               visitedNodeIds={visitedNodeIds}
+              isFinished={isFinished}
             />
           </section>
 
