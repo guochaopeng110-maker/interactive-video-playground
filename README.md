@@ -3,6 +3,8 @@
 > **基于双播放器交替预载与瞬间物理对调技术的数据驱动互动视频引擎。**  
 > 致力于解决单 Video 实例在多分支切换时的**黑屏、卡顿与音频爆音**顽疾，达成**物理切换时差 < 30ms** 的院线级极致流畅感。
 
+![项目主界面截图](docs/images/main.png)
+
 ---
 
 ## 🌟 核心技术突破与亮点
@@ -19,6 +21,15 @@
     内嵌磨砂玻璃（Glassmorphism）高颜值系统控制抽屉。集成**实时切换时延 Benchmarking 看板**（毫秒级浮点打点）、**有声首播启动遮罩**、**剧情拓扑小地图**以及倒计时进度条。
 *   **🧪 10s 超时兜底与原子锁**
     10秒未选择时，系统自动单向激活 `isLocked` 防重复原子锁，安全超时静默物理流转至 `defaultNextNodeId` 默认分支。
+*   **📱 移动端体验响应式升级**
+    *   **控制面板常驻**：针对手机等触屏设备，移除了 hover 机制，将底部播放/暂停及时间进度控制条设为移动端默认常驻显示（`opacity-100`），仅在宽屏桌面端保持悬停显示，极大提升了移动端操纵体验。
+    *   **大屏卡片等高对齐**：移除了剧本目录卡片的硬性最大高度限制，在桌面端（`md:` 及以上）通过弹性布局自动跟左侧播放器等高对齐，界面排版更加严谨高级。
+
+### ⚙️ 核心无缝切换流程示意
+
+下面是双播放器后台静默预载与前后台瞬间物理硬切的交互流程图：
+
+![双播放器无缝物理切换流程图](docs/images/process.png)
 
 ---
 
@@ -90,6 +101,8 @@ ffmpeg -i input.mp4 \
 ```text
 ├── .planning/               # GSD 里程碑与设计文档 (PROJECT/ROADMAP/STATE)
 │   └── phases/05-assets-uat/ # Phase 5 转码指南及 UAT 汇总
+├── docs/
+│   └── images/              # 项目架构流程图与界面截图资源 (main.png / process.png)
 ├── public/
 │   ├── assets/              # 本地测试多媒体资产 (intro/branch_a/branch_b)
 │   └── storyConfig.json     # 数据驱动剧情树路由契约
@@ -98,6 +111,7 @@ ffmpeg -i input.mp4 \
 │   │   ├── InteractivePlayer.tsx       # 双播放器物理层叠与瞬间硬切算法
 │   │   ├── InteractionContainer.tsx    # 倒计时原子锁交互 Overlay 
 │   │   ├── DebugDrawer.tsx             # 极客 Benchmarking 控制面板
+│   │   ├── StoryCatalog.tsx            # 常驻树状剧本章节目录 (Phase 6 新增)
 │   │   └── StoryNodeGraph.tsx          # 拓扑连线小地图
 │   ├── engine/              # 底层事件管理器
 │   │   ├── NodeStateManager.ts         # 状态机逻辑控制器
