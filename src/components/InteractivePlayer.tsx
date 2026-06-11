@@ -185,7 +185,7 @@ export default function InteractivePlayer({
       
       // 重置非交互进度条与时间文本
       if (progressBarRef.current) {
-        progressBarRef.current.style.transform = 'scaleX(0)';
+        progressBarRef.current.style.width = '0%';
       }
       if (timeDisplayRef.current) {
         timeDisplayRef.current.textContent = `00:00 / ${formatTime(newNode.duration)}`;
@@ -308,6 +308,47 @@ export default function InteractivePlayer({
     }
   };
 
+  // 进度条点击跳转与智能拦截逻辑
+  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    if (!hasStarted || isChoiceShowing || isPreempting) return;
+
+    const container = e.currentTarget;
+    const rect = container.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickPct = Math.max(0, Math.min(1, clickX / rect.width));
+
+    const active = activePlayerRef.current;
+    const video = active === 'A' ? videoRefA.current : videoRefB.current;
+    if (!video) return;
+
+    const duration = video.duration || stateManager.getCurrentNode().duration;
+    let targetTime = clickPct * duration;
+    const currentTime = video.currentTime;
+
+    // 智能拦截：如果在当前时间与目标跳转时间之间存在未触发的交互点
+    const node = stateManager.getCurrentNode();
+    if (Array.isArray(node.interactions)) {
+      for (const interaction of node.interactions) {
+        if (currentTime < interaction.timestamp && targetTime > interaction.timestamp) {
+          console.log(`[InteractivePlayer] 跳转拦截！越过互动点 ${interaction.timestamp}s，强制截断并激活分支选项。`);
+          targetTime = interaction.timestamp;
+          
+          // 强制暂停并设置视频进度，调用 tick 触发 Overlay
+          video.pause();
+          setIsPaused(true);
+          video.currentTime = targetTime;
+          stateManager.tick(targetTime);
+          return;
+        }
+      }
+    }
+
+    // 正常跳转
+    video.currentTime = targetTime;
+    stateManager.tick(targetTime);
+  };
+
   // 5. 临近预加载与多分支竞态算法 (Proximity Preload)
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
     if (!hasStarted) return;
@@ -322,7 +363,7 @@ export default function InteractivePlayer({
     // 性能优化：直接操作 DOM 更新进度条与时间文本，免去 React 重绘开销
     const pct = duration > 0 ? (currentTime / duration) : 0;
     if (progressBarRef.current) {
-      progressBarRef.current.style.transform = `scaleX(${pct})`;
+      progressBarRef.current.style.width = `${pct * 100}%`;
     }
     if (timeDisplayRef.current) {
       timeDisplayRef.current.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
@@ -640,16 +681,23 @@ export default function InteractivePlayer({
         </div>
       )}
 
-      {/* Sleek Progress Bar (Non-interactive) */}
+      {/* Sleek Progress Bar (Interactive & Interceptable) */}
       {hasStarted && (
-        <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-slate-950/40 z-[35] pointer-events-none">
+        <div 
+          onClick={handleProgressBarClick}
+          data-testid="interactive-progressbar"
+          className="absolute bottom-0 left-0 right-0 h-[6px] hover:h-[10px] bg-slate-950/40 z-[35] cursor-pointer pointer-events-auto transition-all duration-200 group/progress"
+        >
           <div 
             ref={progressBarRef}
-            className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 origin-left shadow-[0_0_8px_rgba(168,85,247,0.6)] transition-transform duration-75 ease-out"
+            className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 shadow-[0_0_8px_rgba(168,85,247,0.6)] relative"
             style={{
-              transform: 'scaleX(0)',
+              width: '0%',
             }}
-          />
+          >
+            {/* 滑块 Thumb */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-2.5 h-2.5 rounded-full bg-white shadow-md border border-purple-500 scale-0 group-hover/progress:scale-100 transition-transform duration-150 pointer-events-none" />
+          </div>
         </div>
       )}
 

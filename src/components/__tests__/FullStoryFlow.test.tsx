@@ -223,4 +223,54 @@ describe('Interactive Video Engine 全链路集成 UAT 测试 (FullStoryFlow)', 
 
     unmount();
   });
+
+  test('EXP-01: 进度跳跃拦截测试 - 点击跳转越过交互点时自动截断并弹出分支选项', async () => {
+    const { unmount } = render(
+      <div className="relative w-[800px] h-[450px]">
+        <InteractivePlayer stateManager={stateManager} />
+        <InteractionContainer stateManager={stateManager} />
+      </div>
+    );
+
+    // 有声启动
+    const startButton = screen.getByText('开启奇幻之旅 (有声启动)');
+    act(() => {
+      fireEvent.click(startButton);
+    });
+
+    const videoA = document.querySelector('.video-instance-a') as HTMLVideoElement;
+    expect(videoA.currentTime).toBe(0);
+
+    // 获取可交互进度条并 mock 它的大小尺寸
+    const progressBar = screen.getByTestId('interactive-progressbar');
+    progressBar.getBoundingClientRect = vi.fn(() => ({
+      left: 0,
+      width: 100,
+      right: 100,
+      top: 0,
+      bottom: 10,
+      height: 10,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    }));
+
+    // 模拟点击进度条 80% 处。15s 的 80% 是 12s。
+    // 12s 已经越过了 10.0s 判定点，因此应该自动拦截并弹出选项。
+    act(() => {
+      fireEvent.click(progressBar, { clientX: 80 });
+    });
+
+    // 验证视频当前时间被强制拦截在 10.0s 处
+    expect(videoA.currentTime).toBe(10.0);
+
+    // 验证视频暂停被调用
+    expect(HTMLVideoElement.prototype.pause).toHaveBeenCalled();
+
+    // 验证界面上已呈现交互 Overlay 与分支选项
+    expect(screen.getByTestId('interaction-overlay')).toBeInTheDocument();
+    expect(screen.getByText('探索神秘山谷 (分支 A)')).toBeInTheDocument();
+
+    unmount();
+  });
 });
