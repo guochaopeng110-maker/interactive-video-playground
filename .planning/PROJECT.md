@@ -12,15 +12,16 @@
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] **项目基础环境搭建 (Phase 1)**：构建 Vite + React 18 + TS + Tailwind CSS 项目骨架。
+- [x] **数据驱动层实现 (Phase 2)**：读取并解析 `storyConfig.json` 互动逻辑配置文件，驱动引擎运转。
+- [x] **双实例播放器架构 (Phase 3)**：实现 `InteractivePlayer`，挂载双 Video DOM 实例，A 播放时静默预加载 B，实现无缝瞬间切换。
+- [x] **上层交互与状态管理 (Phase 4)**：使用 React 组件处理弹窗选项，利用 `useRef` 高效追踪视频播放进度以触发交互。
+- [x] **资产管理与演示 (Phase 5)**：放置 3 个本地测试视频文件，验证完整的主线到分支 A/B 的无缝切换流程。
 
 ### Active
 
-- [ ] **项目基础环境搭建**：构建 Vite + React 18 + TS + Tailwind CSS 项目骨架。
-- [ ] **数据驱动层实现**：读取并解析 `storyConfig.json` 互动逻辑配置文件，驱动引擎运转。
-- [ ] **双实例播放器架构**：实现 `InteractivePlayer`，挂载双 Video DOM 实例，A 播放时静默预加载 B，实现无缝瞬间切换。
-- [ ] **上层交互与状态管理**：使用 React 组件处理弹窗选项，利用 `useRef` 高效追踪视频播放进度以触发交互。
-- [ ] **资产管理与演示**：放置 3 个本地测试视频文件，验证完整的主线到分支 A/B 的无缝切换流程。
+- [ ] **时间进度条跳跃与智能拦截 (Phase 6 / EXP-01)**：将进度条改为可交互，若跳转目标跨越了互动选择点，自动智能拦截，将播放时间截断至互动时刻并立刻暂停且弹出选项。
+- [ ] **常驻剧本结构化目录 (Phase 6 / EXP-02)**：在主界面右侧新增一个常驻的分支章节目录卡片（毛玻璃质感），结构化展示整部剧的所有分支节点，并支持点击任意节点进行跳转讲解。
 
 ### Out of Scope
 
@@ -43,8 +44,10 @@
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| 双实例交替策略 (Dual-Player) | 单实例 `.mp4` 切换 src 无法消除黑屏，双实例物理切换是最可靠的无缝过渡方案 | — Pending |
-| 数据驱动解耦设计 (JSON-Driven) | 互动逻辑与 UI 框架剥离，方便后期扩充视频节点，无需改动引擎代码 | — Pending |
+| 双实例交替策略 (Dual-Player) | 单实例 `.mp4` 切换 src 无法消除黑屏，双实例物理切换是最可靠 of 无缝过渡方案 | — Approved (Phase 3) |
+| 数据驱动解耦设计 (JSON-Driven) | 互动逻辑与 UI 框架剥离，方便后期扩充视频节点，无需改动引擎代码 | — Approved (Phase 2) |
+| 进度条跳转智能拦截 (Jump Intercept) | 用户在快进演示时，若跳过交互点会导致分支选项无法展示。通过在交互点自动拦截截断，既满足了快进到关键点，又保证了逻辑完整性。 | — Approved (Phase 6) |
+| 常驻毛玻璃章节目录 (Story Catalog) | 提供高可视化的剧本层级脉络，直观展示整部剧的分支关系，方便讲解人进行结构化演示，无需完全依赖剧情自然流转。 | — Approved (Phase 6) |
 
 ## Evolution
 
@@ -64,4 +67,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-27 after initialization*
+*Last updated: 2026-06-11 after Phase 5 UAT & Phase 6 setup*
